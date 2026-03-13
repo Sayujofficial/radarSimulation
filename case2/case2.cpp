@@ -17,7 +17,7 @@ int main() {
     double timeStep = 1.0 / fps; // Har frame ke beech ka gap
     
     double fovDegrees = 25.0;
-    double tiltDegrees = -45.0;
+    double tiltDegrees = -15.0;
     double targetSizeMeters = 3.0;
     
     double pi = 3.14159265;
