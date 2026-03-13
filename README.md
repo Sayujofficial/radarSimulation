@@ -15,7 +15,7 @@ The simulation was built progressively through 6 distinct cases, starting from b
 * **Mechanism:** Calculates the radar's altitude over time as it falls from an initial height of 200m at a constant velocity of 13m/s. It uses standard distance/time physics (`distance = velocity * time`) to subtract the fallen distance from the current height every frame.
 * **Programming:** Introduces the frame timing logic, calculating the exact decimal fraction of a second between frames (for a 30 FPS video) to ensure the simulation runs at real-world speed.
 
-<img src="media/output%20(6).gif" width="600" alt="Case 1 Demo">
+<img src="media/output%20(6).gif" width="200" alt="Case 1 Demo">
 
 ---
 
