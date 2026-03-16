@@ -15,7 +15,7 @@ The simulation was built progressively through 6 distinct cases, starting from b
 * **Mechanism:** Calculates the radar's altitude over time as it falls from an initial height of 200m at a constant velocity of 13m/s. It uses standard distance/time physics (`distance = velocity * time`) to subtract the fallen distance from the current height every frame.
 * **Programming:** Introduces the frame timing logic, calculating the exact decimal fraction of a second between frames (for a 30 FPS video) to ensure the simulation runs at real-world speed.
 
-<img src="media/output%20(6).gif" width="200" alt="Case 1 Demo">
+<img src="media/output%20(6).gif" width="300" alt="Case 1 Demo">
 
 ---
 
@@ -42,7 +42,7 @@ The simulation was built progressively through 6 distinct cases, starting from b
 * **Mechanism:** Replaces the solid geometric target rectangle with a "bright spot" made of scattered data points, mimicking how radar waves bounce and scatter off physical surfaces.
 * **Programming:** Utilizes OpenCV's Random Number Generator (`cv::RNG`). It uses a **Gaussian distribution** to cluster thousands of 1-pixel green dots tightly at the exact center of the target, while organically scattering a few dots further out. A **Uniform distribution** is used to slightly randomize the green brightness of every single pixel, creating a textured, glowing noise effect.
 
-<img src="media/output%20(4).gif" width="600" alt="Case 4 Demo">
+<img src="media/output%20(4).gif" width="300" alt="Case 4 Demo">
 
 ---
 
@@ -51,8 +51,8 @@ The simulation was built progressively through 6 distinct cases, starting from b
 * **Mechanism:** Proves that the scaling and rotation math works universally by placing multiple targets of varying sizes at different locations on the ground.
 * **Programming:** Upgrades the code structure by introducing a C++ `struct` to define a "Target" (storing its specific X offset, Y offset, and physical size). It uses a `std::vector` list and a `for` loop to independently calculate and draw the noise scatter for every target simultaneously during a single frame.
 
-<img src="media/output%20(3).gif" width="600" alt="Case 5 Demo">
-<img src="media/output%20(3).gif" width="600" alt="Case 5 Demo">
+<img src="media/output%20(3).gif" width="300" alt="Case 5 Demo">
+<img src="media/output%20(3).gif" width="300" alt="Case 5 Demo">
 
 ---
 
@@ -63,4 +63,4 @@ The simulation was built progressively through 6 distinct cases, starting from b
   * Introduces **Pendulum Oscillation** by using a Sine wave to swing the submunition back and forth beneath the parachute. 
   * Uses **Relative Motion** math (subtracting the radar's sky position from the targets' ground positions) to dynamically shift the entire ground map across the screen.
 
-<img src="media/output%20(5).gif" width="600" alt="Case 6 Demo">
+<img src="media/output%20(5).gif" width="300" alt="Case 6 Demo">
