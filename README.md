@@ -51,7 +51,7 @@ The simulation was built progressively through 6 distinct cases, starting from b
 * **Mechanism:** Proves that the scaling and rotation math works universally by placing multiple targets of varying sizes at different locations on the ground.
 * **Programming:** Upgrades the code structure by introducing a C++ `struct` to define a "Target" (storing its specific X offset, Y offset, and physical size). It uses a `std::vector` list and a `for` loop to independently calculate and draw the noise scatter for every target simultaneously during a single frame.
 
-<img src="media/output%20(2).gif" width="300" alt="Case 5 Demo">   <img src="media/output%20(3).gif" width="300" alt="Case 5 Demo">
+<img src="media/output%20(2).gif" width="300" alt="Case 5 Demo">             <img src="media/output%20(3).gif" width="300" alt="Case 5 Demo">
 
 
 ---
