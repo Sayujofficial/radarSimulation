@@ -24,7 +24,7 @@ The simulation was built progressively through 6 distinct cases, starting from b
 * **Mechanism:** Calculates the physical width of the ground the radar can see based on its 25° Field of View (FOV) and current height.
 * **Programming:** Introduces the `pixelsPerMeter` conversion ratio. This dynamically scales physical objects (like a 3-meter target) into a specific number of pixels so they can be drawn accurately on an 800x800 digital window. It also calculates the linear shift caused by the radar hanging at a 10° tilt.
 
-<img src="media/output.gif" width="600" alt="Case 2 Demo">
+<img src="media/output.gif" width="300" alt="Case 2 Demo">
 
 ---
 
@@ -33,7 +33,7 @@ The simulation was built progressively through 6 distinct cases, starting from b
 * **Mechanism:** Introduces a 3 Revolutions Per Second (RPS) spin. Because the radar is tilted, the rotation causes the footprint to sweep in a wide circle.
 * **Programming:** Utilizes 2D rotation matrices (Sine and Cosine math) to visually rotate the geometric target box on its own axis. It also introduces a real-world X/Y offset for the target; as the parachute descends and the FOV footprint shrinks, the offset target organically slides off the edge of the screen.
 
-<img src="media/output%20(1).gif" width="600" alt="Case 3 Demo">
+<img src="media/output%20(1).gif" width="300" alt="Case 3 Demo">
 
 ---
 
