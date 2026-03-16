@@ -9,7 +9,7 @@ using namespace std;
 int main() {
     // --- DIGITAL SCREEN SETTINGS ---
     int windowSize = 800; 
-    double fps = 30.0;    
+    double fps = 90.0;    
     double timeStep = 1.0 / fps; 
     
     // --- RADAR HEIGHT CALC ---

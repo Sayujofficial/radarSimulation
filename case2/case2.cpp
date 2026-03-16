@@ -7,9 +7,9 @@ using namespace cv;
 using namespace std;
 
 int main() {
-    Scalar objectColor(0, 0, 255); // Red color for the target
+   Scalar objectColor(0, 255, 0); // Green color for the target
     int windowSize = 800;
-    double fps = 30.0;
+    double fps = 100.0;
     
     // --- Initial setup: Kitni height se gir raha hai aur speed kya hai ---
     double height = 200.0;
@@ -17,7 +17,7 @@ int main() {
     double timeStep = 1.0 / fps; // Har frame ke beech ka gap
     
     double fovDegrees = 25.0;
-    double tiltDegrees = -15.0;
+    double tiltDegrees = 0.0;
     double targetSizeMeters = 3.0;
     
     double pi = 3.14159265;
@@ -48,20 +48,22 @@ int main() {
         int centerX = windowSize / 2;
         int centerY = windowSize / 2;
 
-        // Screen pe target ki position (X is center, Y is tilted)
-        int targetX = centerX - (targetPixels / 2);
-        int targetY = centerY - (targetPixels / 2) - shiftPixels; 
+        // Screen pe target ki position (X is tilted, Y is center)
+        int targetX = centerX - (targetPixels / 2) + shiftPixels;
+        int targetY = centerY - (targetPixels / 2); 
 
         // Bright green rectangle draw kar rahe hain (objectColor use karke)
         Rect targetBox(targetX, targetY, targetPixels, targetPixels);
         rectangle(frame, targetBox, objectColor, FILLED);
 
-        // Screen pe time aur height dikhane ke liye
+       // Screen pe time, height, aur tilt dikhane ke liye
         string timeText = "Time: " + to_string((int)simulationTime) + " s";
         string heightText = "Height: " + to_string((int)height) + " m";
+        string tiltText = "Tilt: " + to_string((int)tiltDegrees) + " deg";
         
         putText(frame, timeText, Point(20, 40), FONT_HERSHEY_SIMPLEX, 1.0, Scalar(255, 255, 255), 2);
         putText(frame, heightText, Point(20, 80), FONT_HERSHEY_SIMPLEX, 1.0, Scalar(255, 255, 255), 2);
+        putText(frame, tiltText, Point(20, 120), FONT_HERSHEY_SIMPLEX, 1.0, Scalar(255, 255, 255), 2);
 
         // Frame ko image file ki tarah save karo
         string filename = "C:\\CPP\\radar\\case2\\frames\\frame_" + to_string(frameCount) + ".png";

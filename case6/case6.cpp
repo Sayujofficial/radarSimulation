@@ -17,7 +17,7 @@ struct RadarTarget {
 int main() {
     // --- 1. DIGITAL SCREEN SETTINGS ---
     int windowSize = 800; 
-    double fps = 30.0;    
+    double fps = 70.0;    
     double timeStep = 1.0 / fps; 
     
     // --- 2. FLIGHT & RADAR VARIABLES ---
@@ -25,7 +25,7 @@ int main() {
     double dropVelocity = 13.0;      
     double fovDegrees = 25.0;      
     double tiltDegrees = 10.0;     
-    double rps = 0.0; 
+    double rps = 3.0; 
     
     // --- 3. NEW: WIND & OSCILLATION SETTINGS ---
     double windVelocityX = 3.0;  // Wind pushes Right at 3 m/s

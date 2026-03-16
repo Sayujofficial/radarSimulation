@@ -9,7 +9,7 @@ using namespace std;
 int main() {
     // --- 1. Display & Video Settings ---
     int windowSize = 800; 
-    double fps = 30.0;    
+    double fps = 90.0;    
     
     // --- 2. Flight Variables ---
     double height = 200.0;       
@@ -24,7 +24,7 @@ int main() {
     double targetSizeMeters = 3.0; 
     
     // physical offset for the target
-    double targetOffsetX = 25.0; 
+    double targetOffsetX = 0.0; 
     double targetOffsetY = 0.0; 
     
     double pi = 3.14159265;
