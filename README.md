@@ -196,19 +196,48 @@ This causes the entire ground map to shift dynamically.
 
 ---
 
-# Project Structure
+## Project Structure
 
 ```
 radarSimulation
 │
 ├ case1
-├ case2
-├ case3
-├ case4
-├ case5
-├ case6
+│   ├ FRAMES/
+│   ├ case1.cpp
+│   ├ frame_saver.cpp
+│   └ output.avi
 │
-├ media
+├ case2
+│   ├ FRAMES/
+│   ├ case2.cpp
+│   ├ frame_saver.cpp
+│   └ output.avi
+│
+├ case3
+│   ├ FRAMES/
+│   ├ case3.cpp
+│   ├ frame_saver.cpp
+│   └ output.avi
+│
+├ case4
+│   ├ FRAMES/
+│   ├ case4.cpp
+│   ├ frame_saver.cpp
+│   └ output.avi
+│
+├ case5
+│   ├ FRAMES/
+│   ├ case5.cpp
+│   ├ frame_saver.cpp
+│   └ output.avi
+│
+├ case6
+│   ├ FRAMES/
+│   ├ case6.cpp
+│   ├ frame_saver.cpp
+│   └ output.avi
+│
+├ media/
 │   ├ output.gif
 │   ├ output (1).gif
 │   ├ output (2).gif
@@ -220,8 +249,7 @@ radarSimulation
 ├ README.md
 └ .gitignore
 ```
-
----
+----
 
 # Future Improvements
 
@@ -239,8 +267,8 @@ Potential extensions for the simulation include:
 
 **Sayuj Singh**
 
-Electronics Engineering  
-MIT Academy of Engineering, Pune
+SOFTWARE DEVELOPER INTERN
+ZEUS NUMERIX PVT LTD, PUNE
 
 Interested in:
 
