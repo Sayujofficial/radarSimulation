@@ -1,66 +1,250 @@
 # Radar Submunition Drop Simulation (C++ / OpenCV)
 
-This project is a C++ physics engine built with OpenCV that simulates the descent, footprint tracking, and sensor scattering of a parachute-dropped submunition radar system. 
+This project is a **C++ physics-based radar simulation engine built using OpenCV**.  
+It models the descent of a **parachute-dropped submunition radar system**, simulating radar footprint behavior, sensor scattering, environmental physics, and multiple ground targets.
 
-The simulation was built progressively through 6 distinct cases, starting from basic linear distance-over-time math and culminating in a complex physics model featuring relative ground motion, wind drift, pendulum oscillation, and Gaussian noise generation.
-
-
-
----
-
-## Development Progression & Case Summary
-
-### Case 1: Basic Drop Physics & Frame Logic
-* **Core Concept:** Establishing the foundational physics of the parachute drop.
-* **Mechanism:** Calculates the radar's altitude over time as it falls from an initial height of 200m at a constant velocity of 13m/s. It uses standard distance/time physics (`distance = velocity * time`) to subtract the fallen distance from the current height every frame.
-* **Programming:** Introduces the frame timing logic, calculating the exact decimal fraction of a second between frames (for a 30 FPS video) to ensure the simulation runs at real-world speed.
-
-<img src="media/output%20(6).gif" width="300" alt="Case 1 Demo">
+The simulation evolves through **six progressively complex stages**, starting from basic kinematics and culminating in a dynamic environment with wind drift, pendulum oscillation, and realistic radar noise.
 
 ---
 
-### Case 2: The Radar Footprint & Screen Scaling
-* **Core Concept:** Mapping the physical real-world environment onto a digital 2D screen.
-* **Mechanism:** Calculates the physical width of the ground the radar can see based on its 25° Field of View (FOV) and current height.
-* **Programming:** Introduces the `pixelsPerMeter` conversion ratio. This dynamically scales physical objects (like a 3-meter target) into a specific number of pixels so they can be drawn accurately on an 800x800 digital window. It also calculates the linear shift caused by the radar hanging at a 10° tilt.
+# Simulation Demonstrations
 
-<img src="media/output.gif" width="300" alt="Case 2 Demo">
+<table>
+<tr>
+<td align="center"><b>Case 1<br>Basic Drop Physics</b></td>
+<td align="center"><b>Case 2<br>Radar Footprint & Scaling</b></td>
+</tr>
+<tr>
+<td><img src="media/output%20(6).gif" width="420"></td>
+<td><img src="media/output.gif" width="420"></td>
+</tr>
 
----
+<tr>
+<td align="center"><b>Case 3<br>Radar Rotation & Target Offset</b></td>
+<td align="center"><b>Case 4<br>Radar Scattering Noise</b></td>
+</tr>
+<tr>
+<td><img src="media/output%20(1).gif" width="420"></td>
+<td><img src="media/output%20(4).gif" width="420"></td>
+</tr>
 
-### Case 3: Radar Rotation & Target Offset
-* **Core Concept:** Simulating the mechanical spinning of the radar hardware and observing objects off-center.
-* **Mechanism:** Introduces a 3 Revolutions Per Second (RPS) spin. Because the radar is tilted, the rotation causes the footprint to sweep in a wide circle.
-* **Programming:** Utilizes 2D rotation matrices (Sine and Cosine math) to visually rotate the geometric target box on its own axis. It also introduces a real-world X/Y offset for the target; as the parachute descends and the FOV footprint shrinks, the offset target organically slides off the edge of the screen.
-
-<img src="media/output%20(1).gif" width="300" alt="Case 3 Demo">
-
----
-
-### Case 4: Realistic Radar Scattering (Noise)
-* **Core Concept:** Moving from perfect geometry to realistic, messy sensor data.
-* **Mechanism:** Replaces the solid geometric target rectangle with a "bright spot" made of scattered data points, mimicking how radar waves bounce and scatter off physical surfaces.
-* **Programming:** Utilizes OpenCV's Random Number Generator (`cv::RNG`). It uses a **Gaussian distribution** to cluster thousands of 1-pixel green dots tightly at the exact center of the target, while organically scattering a few dots further out. A **Uniform distribution** is used to slightly randomize the green brightness of every single pixel, creating a textured, glowing noise effect.
-
-<img src="media/output%20(4).gif" width="300" alt="Case 4 Demo">
-
----
-
-### Case 5: Multiple Ground Targets
-* **Core Concept:** Expanding the simulation from a single object to scanning a complex battlefield map.
-* **Mechanism:** Proves that the scaling and rotation math works universally by placing multiple targets of varying sizes at different locations on the ground.
-* **Programming:** Upgrades the code structure by introducing a C++ `struct` to define a "Target" (storing its specific X offset, Y offset, and physical size). It uses a `std::vector` list and a `for` loop to independently calculate and draw the noise scatter for every target simultaneously during a single frame.
-
-<img src="media/output%20(3).gif" width="600" alt="Case 5 Demo">
-<img src="media/output%20(2).gif" width="600" alt="Case 5 Demo">
+<tr>
+<td align="center"><b>Case 5<br>Multiple Targets</b></td>
+<td align="center"><b>Case 6<br>Environmental Physics</b></td>
+</tr>
+<tr>
+<td><img src="media/output%20(2).gif" width="420"></td>
+<td><img src="media/output%20(5).gif" width="420"></td>
+</tr>
+</table>
 
 ---
 
-### Case 6: Environmental Physics (Wind Drift & Oscillation)
-* **Core Concept:** Simulating the chaotic real-world environment of an unguided parachute drop.
-* **Mechanism:** Reverses the perspective—instead of moving the targets, the simulation physically moves the radar "camera" through the sky.
-* **Programming:** * Introduces **Wind Drift** by applying a constant velocity to the radar's X and Y coordinates. 
-  * Introduces **Pendulum Oscillation** by using a Sine wave to swing the submunition back and forth beneath the parachute. 
-  * Uses **Relative Motion** math (subtracting the radar's sky position from the targets' ground positions) to dynamically shift the entire ground map across the screen.
+# Development Progression
 
-<img src="media/output%20(5).gif" width="300" alt="Case 6 Demo">
+## Case 1 – Basic Drop Physics & Frame Logic
+
+**Core Concept:** Establishing the foundational physics of the parachute drop.
+
+The radar starts at **200 meters altitude** and descends at a constant velocity of **13 m/s**.
+
+Distance travelled is calculated using classical kinematics:
+
+```
+distance = velocity × time
+```
+
+This distance is subtracted from the current altitude each frame.
+
+**Programming Concepts**
+
+- Frame timing synchronization
+- Decimal time calculation for **30 FPS**
+- Real-time physics update per frame
+
+---
+
+## Case 2 – Radar Footprint & Screen Scaling
+
+**Core Concept:** Mapping real-world radar coverage onto a digital simulation grid.
+
+The radar footprint width on the ground is calculated from:
+
+- Radar height
+- **25° field of view (FOV)**
+
+The physical radar footprint expands or shrinks as altitude changes.
+
+**Programming Concepts**
+
+- Pixels-per-meter conversion
+- Dynamic scaling between real world and screen
+- Rendering targets on an **800×800 simulation window**
+
+---
+
+## Case 3 – Radar Rotation & Target Offset
+
+**Core Concept:** Simulating mechanical radar spin and observing off-center targets.
+
+The radar spins at **3 revolutions per second (RPS)**.
+
+Because the radar is mounted at a **10° tilt**, the radar footprint sweeps across the ground in a circular pattern.
+
+**Programming Concepts**
+
+- 2D rotation matrices
+- Trigonometric transforms using
+
+```
+sin()
+cos()
+```
+
+Targets placed with an **X/Y offset** move relative to the radar footprint as the radar descends.
+
+---
+
+## Case 4 – Realistic Radar Scattering (Noise)
+
+**Core Concept:** Moving from perfect geometry to realistic radar sensor data.
+
+Instead of rendering a solid rectangle target, radar returns are represented as **scattered bright points**, simulating radar reflection patterns.
+
+**Programming Concepts**
+
+Random noise is generated using OpenCV's random number generator.
+
+Two statistical distributions are used:
+
+**Gaussian Distribution**
+
+Used to cluster radar reflections near the center of the target.
+
+**Uniform Distribution**
+
+Used to vary brightness of each pixel to simulate signal intensity variation.
+
+This produces a **realistic radar glow effect**.
+
+---
+
+## Case 5 – Multiple Ground Targets
+
+**Core Concept:** Expanding from a single target to scanning multiple objects.
+
+Multiple radar targets with different sizes and positions are placed across the ground map.
+
+**Programming Concepts**
+
+A C++ structure is introduced:
+
+```
+struct Target
+```
+
+Each target stores:
+
+- X offset
+- Y offset
+- Physical size
+
+Targets are stored inside:
+
+```
+std::vector<Target>
+```
+
+A loop processes each target independently during rendering.
+
+---
+
+## Case 6 – Environmental Physics (Wind Drift & Oscillation)
+
+**Core Concept:** Simulating real-world parachute behavior.
+
+Instead of moving targets, the **radar camera itself moves through the environment**.
+
+**Wind Drift**
+
+The radar experiences horizontal velocity due to wind.
+
+**Pendulum Oscillation**
+
+The radar swings beneath the parachute like a pendulum using a sine wave motion.
+
+**Relative Motion System**
+
+Target positions are recalculated relative to the radar's moving position:
+
+```
+relative_position = target_position − radar_position
+```
+
+This causes the entire ground map to shift dynamically.
+
+---
+
+# Technologies Used
+
+- C++
+- OpenCV
+- Real-Time Rendering
+- Physics Simulation
+- Trigonometric Transformations
+- Gaussian Noise Modeling
+
+---
+
+# Project Structure
+
+```
+radarSimulation
+│
+├ case1
+├ case2
+├ case3
+├ case4
+├ case5
+├ case6
+│
+├ media
+│   ├ output.gif
+│   ├ output (1).gif
+│   ├ output (2).gif
+│   ├ output (3).gif
+│   ├ output (4).gif
+│   ├ output (5).gif
+│   └ output (6).gif
+│
+├ README.md
+└ .gitignore
+```
+
+---
+
+# Future Improvements
+
+Potential extensions for the simulation include:
+
+- Doppler radar velocity modeling
+- 3D radar volume visualization
+- Terrain elevation modeling
+- Radar cross-section based reflections
+- Machine learning based target classification
+
+---
+
+# Author
+
+**Sayuj Singh**
+
+Electronics Engineering  
+MIT Academy of Engineering, Pune
+
+Interested in:
+
+- AI / ML
+- Computer Vision
+- Simulation Systems
+- Radar and Signal Processing
